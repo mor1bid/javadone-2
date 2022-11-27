@@ -8,11 +8,29 @@ import java.util.logging.*;
 import java.io.PrintWriter;
 import java.util.concurrent.ThreadLocalRandom;
 import java.time.*;
+import java.sql.*;
 /**
  * dz
  */
 public class dz {
+    public static final String DB_URL = "jdbc:h2:/C:/Users/De/Desktop/osjunkyard/gb/ZsYP/Java/II/db/stockExchange";
+    public static final String DB_Driver = "org.h2.Driver";
     public static void main(String[] args) throws IOException {
+        
+        try {
+            Class.forName(DB_Driver); //Проверяем наличие JDBC драйвера для работы с БД
+            Connection connection = DriverManager.getConnection(DB_URL);//соединениесБД
+            System.out.println("Соединение с СУБД выполнено.");
+            connection.close();       // отключение от БД
+            System.out.println("Отключение от СУБД выполнено.");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace(); // обработка ошибки  Class.forName
+            System.out.println("JDBC драйвер для СУБД не найден!");
+        } catch (SQLException e) {
+            e.printStackTrace(); // обработка ошибок  DriverManager.getConnection
+            System.out.println("Ошибка SQL !");
+        }
+
         Scanner work = new Scanner(System.in);
         FileWriter w = new FileWriter("DZ2.txt", true);
         PrintWriter writer = new PrintWriter(w);
