@@ -1,6 +1,6 @@
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.logging.ConsoleHandler;
+import java.io.FileWriter;
 // import java.lang.System.Logger;
 import java.io.IOException;
 import java.util.logging.*;
@@ -14,6 +14,9 @@ import java.time.*;
 public class dz {
     public static void main(String[] args) throws IOException {
         Scanner work = new Scanner(System.in);
+        FileWriter w = new FileWriter("DZ2.txt", true);
+        PrintWriter writer = new PrintWriter(w);
+        writer.print(LocalDateTime.now() + "\n");
         System.out.println("2. Введите желаемый размер массива: ");
         String inp = work.nextLine();
         int si = Integer.parseInt(inp);
@@ -24,8 +27,8 @@ public class dz {
             ray[i] = randnum;
         }
         System.out.println(Arrays.toString(ray) + " - изначальный вид массива");
-        int sel = ray[0], temp = 0;
-        int[] array = new int[si];
+        writer.print(Arrays.toString(ray) + " - изначальный вид массива\n");
+        int temp = 0;
         boolean isSor = false;
         while (!isSor) {
             isSor = true;
@@ -40,9 +43,7 @@ public class dz {
             }
         }
         System.out.println(Arrays.toString(ray) + " - сортированный вид массива");
-        PrintWriter writer = new PrintWriter("DZ2.txt", "UTF-8");
-        writer.println(LocalDateTime.now());
-        writer.println(Arrays.toString(ray) + " - изначальный вид массива\n" + Arrays.toString(ray) + " - сортированный вид массива\n");
+        writer.print(Arrays.toString(ray) + " - сортированный вид массива\n");
         writer.close();
 
         System.out.println("\n4. Калькулятор! \nДоступные арифметические действия: сложение (+), вычитание (-), умножение (*), деление (/) \nВведите первый аргумент: ");
@@ -58,7 +59,7 @@ public class dz {
 		else System.out.println("Заданный аргумент не является числом!");
 
         Logger spy = Logger.getLogger(dz.class.getName());
-        FileHandler fiha = new FileHandler("log.txt");
+        FileHandler fiha = new FileHandler("log.txt", true);
         spy.addHandler(fiha);
 
         SimpleFormatter sFormat = new SimpleFormatter();
