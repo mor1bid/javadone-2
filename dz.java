@@ -13,7 +13,7 @@ import java.sql.*;
  * dz
  */
 public class dz {
-    public static final String DB_URL = "jdbc:h2:/C:/Users/De/Desktop/osjunkyard/gb/ZsYP/Java/II/db/stockExchange";
+    public static final String DB_URL = "jdbc:h2:/c/Users/De/Desktop/osjunkyard/gb/ZsYP/Java/II/db/stockExchange";
     public static final String DB_Driver = "org.h2.Driver";
     public static void main(String[] args) throws IOException {
         
