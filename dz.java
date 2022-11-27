@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.logging.ConsoleHandler;
 // import java.lang.System.Logger;
@@ -6,7 +7,7 @@ import java.util.logging.*;
 // import java.io.File;
 import java.io.PrintWriter;
 import java.util.concurrent.ThreadLocalRandom;
-
+import java.time.*;
 /**
  * dz
  */
@@ -17,30 +18,32 @@ public class dz {
         String inp = work.nextLine();
         int si = Integer.parseInt(inp);
         int[] ray = new int[si];
-        System.out.print("[");
         for (int i = 0; i<si; i++) 
         {
             int randnum = ThreadLocalRandom.current().nextInt(0, 10);
             ray[i] = randnum;
-            System.out.print(ray[i] + ", ");
         }
-        System.out.print("] - изначальный вид массива\n[");
+        System.out.println(Arrays.toString(ray) + " - изначальный вид массива");
         int sel = ray[0], temp = 0;
         int[] array = new int[si];
-        for (int i = 0; i<si; i++) {
-            for (int j = 0; j<si; j++) {
-                if (ray[i]<ray[j]) { sel = ray[i]; }
-                }
-            array[i] = sel;
-            System.out.print(ray[i] + ", ");
-        }
-        System.out.print("] - сортированный вид массива");
-        Logger spy = Logger.getLogger(dz.class.getName());
-        FileHandler fiha = new FileHandler("log.txt");
-        spy.addHandler(fiha);
+        boolean isSor = false;
+        while (!isSor) {
+            isSor = true;
+            for (int i = 0; i<si-1; i++) {
+                if (ray[i]>ray[i+1]) {
+                    isSor = false;
 
-        SimpleFormatter sFormat = new SimpleFormatter();
-        fiha.setFormatter(sFormat);
+                    temp = ray[i];
+                    ray[i] = ray[i+1];
+                    ray[i+1] = temp;
+                }
+            }
+        }
+        System.out.println(Arrays.toString(ray) + " - сортированный вид массива");
+        PrintWriter writer = new PrintWriter("DZ2.txt", "UTF-8");
+        writer.println(LocalDateTime.now());
+        writer.println(Arrays.toString(ray) + " - изначальный вид массива\n" + Arrays.toString(ray) + " - сортированный вид массива\n");
+        writer.close();
 
         System.out.println("\n4. Калькулятор! \nДоступные арифметические действия: сложение (+), вычитание (-), умножение (*), деление (/) \nВведите первый аргумент: ");
 		String arga = work.nextLine();
@@ -53,6 +56,13 @@ public class dz {
 		String argb = work.nextLine();
 		if (arga.chars().allMatch(Character::isDigit)) { numb = Double.parseDouble(argb); }
 		else System.out.println("Заданный аргумент не является числом!");
+
+        Logger spy = Logger.getLogger(dz.class.getName());
+        FileHandler fiha = new FileHandler("log.txt");
+        spy.addHandler(fiha);
+
+        SimpleFormatter sFormat = new SimpleFormatter();
+        fiha.setFormatter(sFormat);
 
 		if (opera.equals("+")) { double res = numa + numb; System.out.println("Ответ: " + res); }
 		else if (opera.equals("-")) { double res = numa - numb; System.out.println("Ответ: " + res); }
