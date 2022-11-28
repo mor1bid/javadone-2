@@ -2,7 +2,7 @@ import java.io.File;
 
 public class smn {
     public static void main(String[] args) {
-        getArray("C:/Users/De/Desktop/osjunkyard/gb/ZsYP/Java/II/");
+        getArray("C:\\Users\\De\\Desktop\\osjunkyard\\gb\\ZsYP\\Java\\II");
     }
     public static void getArray(String str) {
         File file = new File(str);

@@ -16,22 +16,23 @@ public class dz {
     public static final String DB_URL = "jdbc:h2:/c/Users/De/Desktop/osjunkyard/gb/ZsYP/Java/II/db/stockExchange";
     public static final String DB_Driver = "org.h2.Driver";
     public static void main(String[] args) throws IOException {
-        
-        try {
-            Class.forName(DB_Driver); //Проверяем наличие JDBC драйвера для работы с БД
-            Connection connection = DriverManager.getConnection(DB_URL);//соединениесБД
-            System.out.println("Соединение с СУБД выполнено.");
-            connection.close();       // отключение от БД
-            System.out.println("Отключение от СУБД выполнено.");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace(); // обработка ошибки  Class.forName
-            System.out.println("JDBC драйвер для СУБД не найден!");
-        } catch (SQLException e) {
-            e.printStackTrace(); // обработка ошибок  DriverManager.getConnection
-            System.out.println("Ошибка SQL !");
-        }
-
         Scanner work = new Scanner(System.in);
+        StringBuilder bob = new StringBuilder();
+        String[] filters = {"name", "country", "city", "age"};
+        String[] database = new String[filters.length];
+        System.out.println("1. Введите желаемые значения через пробел и в соответствии с параметрами (name, country, city, age): ");
+        String put = work.nextLine();
+        String[] words = put.split(" ");
+        for (int i = 0; i<words.length; i++) {
+            bob.append(filters[i]);
+            bob.append(":");
+            bob.append(words[i]);
+            database[i] = bob.toString();
+            bob.setLength(0);
+        }
+        System.out.println(Arrays.toString(database));
+
+
         FileWriter w = new FileWriter("DZ2.txt", true);
         PrintWriter writer = new PrintWriter(w);
         writer.print(LocalDateTime.now() + "\n");
