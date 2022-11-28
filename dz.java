@@ -1,14 +1,12 @@
 import java.util.Arrays;
 import java.util.Scanner;
-import java.io.FileWriter;
-// import java.lang.System.Logger;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.logging.*;
-// import java.io.File;
-import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.concurrent.ThreadLocalRandom;
 import java.time.*;
-import java.sql.*;
 /**
  * dz
  */
@@ -18,11 +16,12 @@ public class dz {
     public static void main(String[] args) throws IOException {
         Scanner work = new Scanner(System.in);
         StringBuilder bob = new StringBuilder();
+        Writer print = new OutputStreamWriter(new FileOutputStream("DZ1.txt", true), "UTF-8");
         String[] filters = {"name", "country", "city", "age"};
-        String[] database = new String[filters.length];
-        System.out.println("1. Введите желаемые значения через пробел и в соответствии с параметрами (name, country, city, age): ");
+        System.out.println("1. Введите желаемые значения через пробел и в соответствии с параметрами:\n(name, country, city, age): ");
         String put = work.nextLine();
         String[] words = put.split(" ");
+        String[] database = new String[words.length];
         for (int i = 0; i<words.length; i++) {
             bob.append(filters[i]);
             bob.append(":");
@@ -30,12 +29,13 @@ public class dz {
             database[i] = bob.toString();
             bob.setLength(0);
         }
+        print.write(Arrays.toString(database) + "\n");
+        print.close();
         System.out.println(Arrays.toString(database));
 
 
-        FileWriter w = new FileWriter("DZ2.txt", true);
-        PrintWriter writer = new PrintWriter(w);
-        writer.print(LocalDateTime.now() + "\n");
+        Writer writer = new OutputStreamWriter(new FileOutputStream("DZ2.txt", true), "UTF-8");
+        writer.write(LocalDateTime.now() + "\n");
         System.out.println("2. Введите желаемый размер массива: ");
         String inp = work.nextLine();
         int si = Integer.parseInt(inp);
@@ -46,7 +46,7 @@ public class dz {
             ray[i] = randnum;
         }
         System.out.println(Arrays.toString(ray) + " - изначальный вид массива");
-        writer.print(Arrays.toString(ray) + " - изначальный вид массива\n");
+        writer.write(Arrays.toString(ray) + " - изначальный вид массива\n");
         int temp = 0;
         boolean isSor = false;
         while (!isSor) {
@@ -62,7 +62,7 @@ public class dz {
             }
         }
         System.out.println(Arrays.toString(ray) + " - сортированный вид массива");
-        writer.print(Arrays.toString(ray) + " - сортированный вид массива\n");
+        writer.write(Arrays.toString(ray) + " - сортированный вид массива\n");
         writer.close();
 
         System.out.println("\n4. Калькулятор! \nДоступные арифметические действия: сложение (+), вычитание (-), умножение (*), деление (/) \nВведите первый аргумент: ");
